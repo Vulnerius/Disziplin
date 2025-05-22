@@ -43,6 +43,23 @@ fun Route.habitRoutes() {
             call.respond(HttpStatusCode.Created, HabitResponseDTO(id, dto.title))
         }
 
+        get("/{id}/logs/completed") {
+            val habitId = call.parameters["id"]?.toIntOrNull() ?: return@get call.respond(HttpStatusCode.BadRequest, "Invalid habitId")
+            val logs = transaction {
+                HabitLogs.selectAll().where {
+                    (HabitLogs.habit eq habitId) and (HabitLogs.completed eq true)
+                }.map {
+                    HabitLogResponseDTO(
+                        habitId = it[HabitLogs.habit].value,
+                        date = it[HabitLogs.date].toString(),
+                        completed = true
+                    )
+                }.sortedByDescending { it.date } // optional: vom neuesten zum ältesten
+            }
+
+            call.respond(logs)
+        }
+
         get("/{date}") {
             val dateParam =
                 call.parameters["date"] ?: return@get call.respond(HttpStatusCode.BadRequest, "Missing date")

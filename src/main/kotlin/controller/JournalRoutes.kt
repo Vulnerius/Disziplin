@@ -12,6 +12,7 @@ import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.insertIgnore
+import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.transactions.transaction
 import java.time.LocalDate
 
@@ -24,7 +25,7 @@ fun Route.journalRoutes() {
             val date = LocalDate.parse(dateParam)
 
             val entry = transaction {
-                Journals.select(Journals.date eq date)
+                Journals.selectAll().where(Journals.date eq date)
                     .firstOrNull()
             }
 
@@ -32,9 +33,10 @@ fun Route.journalRoutes() {
                 call.respond(HttpStatusCode.NotFound)
             } else {
                 val todos = transaction {
-                    Todos.select ( Todos.date eq date )
+                    Todos.selectAll()
+                        .where(Todos.date eq date)
                         .orderBy(Todos.position)
-                        .map { it[Journals.content] }
+                        .map { it[Todos.title] }
                 }
 
                 call.respond(
