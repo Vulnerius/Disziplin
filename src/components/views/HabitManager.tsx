@@ -69,10 +69,10 @@ export default function HabitManager() {
             <ul>
                 {habits.map(habit => (
                     <li key={habit.id} className="flex justify-between items-center py-2 border-b">
-                        <span>{habit.title}</span>
+                        <span className="padding-2">{habit.title}</span>
                         <button
                             onClick={() => deleteHabit(habit.id)}
-                            className="text-red-500 hover:text-red-700"
+                            className="text-red-500 hover:text-red-700 mx-auto"
                         >
                             Löschen
                         </button>

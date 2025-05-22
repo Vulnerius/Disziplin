@@ -7,7 +7,7 @@ export function IndexView() {
 
     return (
         <section>
-            <header className="mb-6">
+            <header className="mb-6 outline-2">
                 <h1 className="text-3xl font-bold mb-2">Daily Overview</h1>
                 <DatePicker selectedDate={selectedDate} onChange={setSelectedDate}/>
             </header>

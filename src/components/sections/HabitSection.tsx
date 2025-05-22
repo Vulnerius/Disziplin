@@ -17,6 +17,7 @@ export interface Habit {
 export default function HabitSection({date}: { date: Date }) {
     const [habitLogs, setHabitLogs] = useState<HabitLog[]>([]);
     const [habits, setHabits] = useState<Habit[]>([]);
+
     const dateStr = date.toISOString().split("T")[0];
 
     useEffect(() => {
