@@ -4,14 +4,14 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class JournalEntryDTO(
+    val id: Int? = null,
     val date: String,
     val notes: String,
-    val topTodos: List<String>
 )
 
 @Serializable
 data class JournalResponseDTO(
+    val id: Int,
     val date: String,
     val notes: String,
-    val topTodos: List<String>
 )

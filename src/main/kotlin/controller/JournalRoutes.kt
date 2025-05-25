@@ -1,18 +1,14 @@
 package dev.vulnerius.controller
 
 import dev.vulnerius.model.Journals
-import dev.vulnerius.model.Todos
 import dev.vulnerius.model.dto.JournalEntryDTO
 import dev.vulnerius.model.dto.JournalResponseDTO
 import io.ktor.http.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
-import org.jetbrains.exposed.sql.deleteWhere
-import org.jetbrains.exposed.sql.insert
-import org.jetbrains.exposed.sql.insertIgnore
-import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.transactions.transaction
 import java.time.LocalDate
 
@@ -32,18 +28,11 @@ fun Route.journalRoutes() {
             if (entry == null) {
                 call.respond(HttpStatusCode.NotFound)
             } else {
-                val todos = transaction {
-                    Todos.selectAll()
-                        .where(Todos.date eq date)
-                        .orderBy(Todos.position)
-                        .map { it[Todos.title] }
-                }
-
                 call.respond(
                     JournalResponseDTO(
+                        id = entry[Journals.id].value,
                         date = date.toString(),
                         notes = entry[Journals.content],
-                        topTodos = todos
                     )
                 )
             }
@@ -53,24 +42,42 @@ fun Route.journalRoutes() {
             val dto = call.receive<JournalEntryDTO>()
             val date = LocalDate.parse(dto.date)
 
-            transaction {
-                Journals.insertIgnore {
+            val id = transaction {
+                Journals.insertAndGetId {
                     it[Journals.date] = date
                     it[content] = dto.notes
                 }
+            }
 
-                Todos.deleteWhere { Todos.date eq date }
+            call.respond(
+                JournalResponseDTO(
+                    id = id.value,
+                    date = date.toString(),
+                    notes = dto.notes,
+                )
+            )
+        }
 
-                dto.topTodos.take(3).forEachIndexed { i, todo ->
-                    Todos.insert {
-                        it[Todos.date] = date
-                        it[position] = i
-                        it[title] = todo
-                    }
+        put("/{id}") {
+            val id = call.parameters["id"]?.toIntOrNull()
+                ?: return@put call.respond(HttpStatusCode.BadRequest, "Invalid id")
+            val dto = call.receive<JournalEntryDTO>()
+
+            println("$id : $dto")
+
+            transaction {
+                Journals.update({ Journals.id eq id }) {
+                    it[content] = dto.notes
                 }
             }
 
-            call.respond(HttpStatusCode.Created, mapOf("status" to "saved"))
+            call.respond(
+                JournalResponseDTO(
+                    id = id,
+                    date = dto.date,
+                    notes = dto.notes,
+                )
+            )
         }
     }
 }

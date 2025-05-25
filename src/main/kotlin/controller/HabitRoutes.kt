@@ -84,7 +84,7 @@ fun Route.habitRoutes() {
                 ?: return@delete call.respond(HttpStatusCode.BadRequest, "Invalid habitId")
 
             transaction {
-                HabitLogs.deleteWhere { HabitLogs.habit eq habitId }
+                HabitLogs.deleteWhere { habit eq habitId }
                 Habits.deleteWhere { Habits.id eq habitId }
             }
 
@@ -101,14 +101,13 @@ fun Route.habitRoutes() {
                 }.singleOrNull()
 
                 if (existing != null) {
-                    // ✅ Update bestehenden Log
                     return@transaction HabitLogs.update({
                         (HabitLogs.habit eq dto.habitId) and (HabitLogs.date eq date)
                     }) {
                         it[completed] = dto.completed
                     }
                 } else {
-                    // ➕ Insert neuen Log
+                    // insert new Log
                     return@transaction HabitLogs.insertAndGetId {
                         it[habit] = EntityID(dto.habitId, Habits)
                         it[HabitLogs.date] = date
