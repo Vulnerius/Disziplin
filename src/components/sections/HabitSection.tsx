@@ -40,14 +40,16 @@ export default function HabitSection({date}: { date: Date }) {
 
     const toggleHabit = (habit: HabitLog) => {
         const updated = !habit.completed;
+
+        const payload = {
+            habitId: habit.habitId,
+            date: dateStr,
+            completed: updated
+        }
         fetch("http://localhost:8080/api/habits/log", {
             method: "POST",
             headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({
-                habitId: habit.habitId,
-                date: dateStr,
-                completed: updated
-            })
+            body: JSON.stringify(payload)
         })
             .then(res => res.json())
             .then(data => {
