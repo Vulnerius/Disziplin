@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import type {Habit} from "../sections/HabitSection.tsx";
 
 
@@ -21,8 +21,8 @@ export default function HabitManager() {
 
         fetch("http://localhost:8080/api/habits", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ title })
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({title})
         })
             .then(res => res.json())
             .then(data => {
@@ -70,12 +70,14 @@ export default function HabitManager() {
                 {habits.map(habit => (
                     <li key={habit.id} className="flex justify-between items-center py-2 border-b">
                         <span className="padding-2">{habit.title}</span>
-                        <button
-                            onClick={() => deleteHabit(habit.id)}
-                            className="text-red-500 hover:text-red-700 mx-auto"
-                        >
-                            Löschen
-                        </button>
+                        <div className="rtl">
+                            <button
+                                onClick={() => deleteHabit(habit.id)}
+                                className="text-red-500 hover:text-red-700 mx-auto"
+                            >
+                                Löschen
+                            </button>
+                        </div>
                     </li>
                 ))}
             </ul>
