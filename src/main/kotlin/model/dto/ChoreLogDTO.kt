@@ -7,3 +7,6 @@ data class ChoreLogDTO(val choreId: Int, val date: String, val completed: Boolea
 
 @Serializable
 data class ChoreLogResponseDTO(val choreId: Int, val completed: Boolean)
+
+@Serializable
+data class ChoreResponseDateDTO(val chore: ChoreResponseDTO, val logs: ChoreLogResponseDTO)

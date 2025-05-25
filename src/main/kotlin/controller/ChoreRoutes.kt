@@ -1,6 +1,7 @@
 package dev.vulnerius.controller
 
 import dev.vulnerius.model.*
+import dev.vulnerius.model.ChoreLogs.chore
 import dev.vulnerius.model.dto.*
 import io.ktor.http.*
 import io.ktor.server.request.*
@@ -34,17 +35,31 @@ fun Route.choreRoutes() {
             val date = LocalDate.parse(dateParam)
             val weekday = date.dayOfWeek.value
 
-            val logs = transaction {
-                ChoreLogs.innerJoin(Chores)
-                    .select ( ChoreLogs.date eq date )
-                    .map {
+            val result = transaction {
+                val chores = Chores.selectAll().where {
+                    Chores.weekday eq weekday
+                }.map {
+                    val choreId = it[Chores.id].value
+                    val log = ChoreLogs.selectAll().where {
+                        (ChoreLogs.chore eq choreId) and (ChoreLogs.date eq date)
+                    }.singleOrNull()
+
+                    ChoreResponseDateDTO(
+                        ChoreResponseDTO(
+                            id = choreId,
+                            title = it[Chores.title],
+                            weekday = it[Chores.weekday]
+                        ),
                         ChoreLogResponseDTO(
-                            choreId = it[ChoreLogs.chore].value,
-                            completed = it[ChoreLogs.completed]
+                            choreId = choreId,
+                            completed = log?.get(ChoreLogs.completed) ?: false
                         )
-                    }
+                    )
+                }
+                chores
             }
-            call.respond(logs)
+
+            call.respond(result)
         }
 
         post {
@@ -71,6 +86,19 @@ fun Route.choreRoutes() {
                 }
             }
             call.respond(HttpStatusCode.OK, mapOf("status" to "saved"))
+        }
+
+        delete("/{id}") {
+            val idParam = call.parameters["id"] ?: return@delete call.respond(HttpStatusCode.BadRequest, "ID fehlt")
+            val id = idParam.toIntOrNull() ?: return@delete call.respond(HttpStatusCode.BadRequest, "Ungültige ID")
+
+            transaction {
+                ChoreLogs.deleteWhere { ChoreLogs.chore eq id }
+                Chores.deleteWhere { Chores.id eq id }
+            }
+
+            call.respond(HttpStatusCode.NoContent)
+
         }
     }
 }
