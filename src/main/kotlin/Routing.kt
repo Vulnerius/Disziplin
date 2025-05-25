@@ -3,6 +3,7 @@ package dev.vulnerius
 import dev.vulnerius.controller.choreRoutes
 import dev.vulnerius.controller.habitRoutes
 import dev.vulnerius.controller.journalRoutes
+import dev.vulnerius.controller.todoRoutes
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
@@ -43,6 +44,7 @@ fun Application.configureRouting() {
             habitRoutes()
             choreRoutes()
             journalRoutes()
+            todoRoutes()
         }
     }
 }
