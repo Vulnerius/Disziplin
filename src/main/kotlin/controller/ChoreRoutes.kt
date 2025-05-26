@@ -79,13 +79,31 @@ fun Route.choreRoutes() {
             val date = LocalDate.parse(dto.date)
 
             transaction {
-                ChoreLogs.insertIgnore {
-                    it[chore] = EntityID(dto.choreId, Chores)
-                    it[ChoreLogs.date] = date
-                    it[completed] = dto.completed
+                val existing = ChoreLogs.selectAll().where {
+                    (ChoreLogs.chore eq dto.choreId) and (ChoreLogs.date eq date)
+                }.singleOrNull()
+
+                if (existing != null) {
+                    return@transaction ChoreLogs.update({
+                        (ChoreLogs.chore eq dto.choreId) and (ChoreLogs.date eq date)
+                    }) {
+                        it[completed] = dto.completed
+                    }
+                } else {
+                    return@transaction ChoreLogs.insertAndGetId {
+                        it[chore] = EntityID(dto.choreId, Chores)
+                        it[ChoreLogs.date] = date
+                        it[completed] = dto.completed
+                    }
                 }
             }
-            call.respond(HttpStatusCode.OK, mapOf("status" to "saved"))
+
+            call.respond(
+                ChoreLogResponseDTO(
+                    choreId = dto.choreId,
+                    completed = dto.completed
+                )
+            )
         }
 
         delete("/{id}") {

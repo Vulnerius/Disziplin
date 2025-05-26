@@ -5,7 +5,7 @@ import org.jetbrains.exposed.sql.javatime.date
 
 object Chores : IntIdTable() {
     val title = varchar("title", 255)
-    val weekday = integer("weekday") // 0=Montag, 6=Sonntag
+    val weekday = integer("weekday")
     val createdAt = date("created_at")
 }
 

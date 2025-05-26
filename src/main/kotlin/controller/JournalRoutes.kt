@@ -26,7 +26,7 @@ fun Route.journalRoutes() {
             }
 
             if (entry == null) {
-                call.respond(HttpStatusCode.NotFound)
+                call.respond(HttpStatusCode.NoContent)
             } else {
                 call.respond(
                     JournalResponseDTO(
