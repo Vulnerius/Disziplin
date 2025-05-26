@@ -17,7 +17,7 @@ export default function JournalSection({ date }: { date: Date }) {
         setLoading(true);
         fetch(`http://localhost:8080/api/journal/${dateStr}`)
             .then(res => {
-                if (res.status === 404) return null; // Kein Eintrag
+                if (res.status === 204) return null; // Kein Eintrag
                 return res.json();
             })
             .then(data => {

@@ -14,7 +14,7 @@ type ChoreLog = {
 
 type ChoreWithLog = {
     chore: Chore;
-    log: ChoreLog;
+    logs: ChoreLog;
 };
 
 export default function ChoreSection({date}: { date: Date }) {
@@ -29,20 +29,21 @@ export default function ChoreSection({date}: { date: Date }) {
     }, [dateStr]);
 
     const toggleChore = (chore: Chore, completed: boolean) => {
+        const nextCompleted = !completed;
         fetch(`http://localhost:8080/api/chores/log`, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({
                 choreId: chore.id,
                 date: dateStr,
-                completed: !completed
+                completed: nextCompleted
             })
         })
             .then(() => {
                 setChores(prev =>
                     prev.map(entry =>
                         entry.chore.id === chore.id
-                            ? {...entry, log: {...entry.log, completed: !completed}}
+                            ? {...entry, log: {...entry.logs, completed: nextCompleted}}
                             : entry
                     )
                 );
@@ -69,14 +70,14 @@ export default function ChoreSection({date}: { date: Date }) {
             </h2>
 
             <ul className="space-y-2">
-                {chores.map(({chore, log}) => (
+                {chores.map(({chore, logs}) => (
                     <li key={chore.id} className="flex items-center gap-2">
                         <input
                             type="checkbox"
-                            checked={log?.completed ?? false}
-                            onChange={() => toggleChore(chore, log?.completed ?? false)}
+                            checked={logs?.completed ?? false}
+                            onChange={() => toggleChore(chore, logs?.completed ?? false)}
                         />
-                        <span className={log?.completed ? "line-through text-gray-500" : ""}>
+                        <span className={logs?.completed ? "line-through text-gray-500" : ""}>
                             {chore.title}
                         </span>
                     </li>
