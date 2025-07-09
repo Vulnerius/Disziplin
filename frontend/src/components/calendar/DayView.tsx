@@ -1,4 +1,4 @@
-import HabitSection from "../sections/HabitSection";
+import HabitSection from "../sections/HabitSection.tsx";
 import JournalSection from "../sections/JournalSection.tsx";
 import TodoSection from "../sections/TodoSection.tsx";
 import ChoreSection from "../sections/ChoreSection.tsx";

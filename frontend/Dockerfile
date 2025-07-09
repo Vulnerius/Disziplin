@@ -14,7 +14,7 @@ COPY package*.json ./
 RUN npm install
 
 # Copy the rest of your application code
-COPY . .
+COPY .. .
 
 # Build the Vite application for production
 # This command generates your static assets into the 'dist' directory
