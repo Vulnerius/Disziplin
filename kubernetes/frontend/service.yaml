@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-app-service
+spec:
+  selector:
+    app: frontend
+  ports:
+    - protocol: TCP
+      port: 80 # Oder der Port, auf dem der Service erreichbar sein soll
+      targetPort: 3000 # Der Port des Containers
+  type: LoadBalancer # Für lokale Entwicklung wird Docker Desktop/minikube dies auf Host-Port mappen
+  # Oder type: NodePort, um einen Port auf dem Host direkt freizugeben.
+  # Oder Ingress nutzen, siehe unten.
