@@ -25,7 +25,7 @@ fun Application.configureRouting() {
     }
 
     install(CORS) {
-        allowHost("92.168.2.111:30613", schemes = listOf("http")) // TODO check here
+        allowHost("192.168.2.111:30613", schemes = listOf("http")) // TODO check here
         allowMethod(HttpMethod.Get)
         allowMethod(HttpMethod.Post)
         allowMethod(HttpMethod.Put)
