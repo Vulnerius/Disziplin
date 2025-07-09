@@ -24,7 +24,7 @@ export default function ChoreManager() {
     const [weekday, setWeekday] = useState(1);
 
     useEffect(() => {
-        fetch("${API_BASE_URL}/api/chores")
+        fetch(`${API_BASE_URL}/api/chores`)
             .then(res => res.json())
             .then(data => setChores(data))
             .catch(err => console.error("Fehler beim Laden der Chores:", err));
@@ -47,7 +47,7 @@ export default function ChoreManager() {
 
         const payload = { title, weekday };
 
-        const res = await fetch("${API_BASE_URL}/api/chores", {
+        const res = await fetch(`${API_BASE_URL}/api/chores`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(payload),

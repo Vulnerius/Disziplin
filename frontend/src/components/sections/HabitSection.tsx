@@ -49,7 +49,7 @@ export default function HabitSection({date}: { date: Date }) {
             date: dateStr,
             completed: updated
         }
-        fetch("${API_BASE_URL}/api/habits/log", {
+        fetch(`${API_BASE_URL}/api/habits/log`, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(payload)

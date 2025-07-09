@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-const API_BASE_URL = import.meta.env.VITE_BACKEND_API_URL || "http://localhost:80";
 
 interface JournalEntry {
     id: number;
@@ -8,6 +7,8 @@ interface JournalEntry {
 }
 
 export default function JournalSection({ date }: { date: Date }) {
+    const API_BASE_URL = import.meta.env.VITE_BACKEND_API_URL || "http://localhost:80";
+
     const [entry, setEntry] = useState<JournalEntry | null>(null);
     const [inputValue, setInputValue] = useState("");
     const [loading, setLoading] = useState(true);
@@ -45,7 +46,7 @@ export default function JournalSection({ date }: { date: Date }) {
         const method = entry ? "PUT" : "POST";
         const url = entry
             ? `${API_BASE_URL}/api/journal/${entry.id}`
-            : "${API_BASE_URL}/api/journal";
+            : `${API_BASE_URL}/api/journal`;
 
         fetch(url, {
             method,

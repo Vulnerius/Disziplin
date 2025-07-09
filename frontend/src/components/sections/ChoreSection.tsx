@@ -1,6 +1,5 @@
 import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
-const API_BASE_URL = import.meta.env.VITE_BACKEND_API_URL || "http://localhost:80";
 
 type Chore = {
     id: number;
@@ -19,6 +18,7 @@ type ChoreWithLog = {
 };
 
 export default function ChoreSection({date}: { date: Date }) {
+    const API_BASE_URL = import.meta.env.VITE_BACKEND_API_URL || "http://localhost:80";
     const [chores, setChores] = useState<ChoreWithLog[]>([]);
     const dateStr = date.toISOString().split("T")[0];
 

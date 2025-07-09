@@ -30,7 +30,7 @@ export default function TodoSection({date}: { date: Date }) {
 
         if (!todo.id) {
             // Neu anlegen
-            fetch("${API_BASE_URL}/api/todos", {
+            fetch(`${API_BASE_URL}/api/todos`, {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify(newTodo)

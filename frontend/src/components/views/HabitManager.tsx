@@ -1,15 +1,15 @@
 import {useEffect, useState} from "react";
 import type {Habit} from "../sections/HabitSection.tsx";
 
-const API_BASE_URL = import.meta.env.VITE_BACKEND_API_URL || "http://localhost:80";
-
 export default function HabitManager() {
+    const API_BASE_URL = import.meta.env.VITE_BACKEND_API_URL || "http://localhost:80";
+
     const [habits, setHabits] = useState<Habit[]>([]);
     const [newHabitTitle, setNewHabitTitle] = useState("");
 
     // ✅ Alle Habits laden
     useEffect(() => {
-        fetch("${API_BASE_URL}/api/habits")
+        fetch(`${API_BASE_URL}/api/habits`)
             .then(res => res.json())
             .then(setHabits)
             .catch(err => console.error("Fehler beim Laden der Habits:", err));
@@ -20,7 +20,7 @@ export default function HabitManager() {
         const title = newHabitTitle.trim();
         if (!title) return;
 
-        fetch("${API_BASE_URL}/api/habits", {
+        fetch(`${API_BASE_URL}/api/habits`, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({title})
