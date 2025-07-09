@@ -21,7 +21,7 @@ export default function HabitSection({date}: { date: Date }) {
     const dateStr = date.toISOString().split("T")[0];
 
     useEffect(() => {
-        fetch(`http://localhost:8080/api/habits`)
+        fetch(`http://backend-app-service:8080/api/habits`)
             .then(res => res.json())
             .then(data => setHabits(data.map((h: { id: number; title: string; }) => ({
                 id: h.id,
@@ -31,7 +31,7 @@ export default function HabitSection({date}: { date: Date }) {
     }, []);
 
     useEffect(() => {
-        fetch(`http://localhost:8080/api/habits/${dateStr}`)
+        fetch(`http://backend-app-service:8080/api/habits/${dateStr}`)
             .then(res => res.json())
             .then(data => setHabitLogs(data))
             .catch(err => console.error("Fehler beim Laden der Habits:", err));
@@ -46,7 +46,7 @@ export default function HabitSection({date}: { date: Date }) {
             date: dateStr,
             completed: updated
         }
-        fetch("http://localhost:8080/api/habits/log", {
+        fetch("http://backend-app-service:8080/api/habits/log", {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(payload)

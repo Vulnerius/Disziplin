@@ -25,7 +25,7 @@ fun Application.configureRouting() {
     }
 
     install(CORS) {
-        allowHost("localhost:5173", schemes = listOf("http"))
+        allowHost("frontend-app-service:80", schemes = listOf("http")) // TODO check here
         allowMethod(HttpMethod.Get)
         allowMethod(HttpMethod.Post)
         allowMethod(HttpMethod.Put)

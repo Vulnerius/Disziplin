@@ -22,7 +22,7 @@ export default function ChoreManager() {
     const [weekday, setWeekday] = useState(1);
 
     useEffect(() => {
-        fetch("http://localhost:8080/api/chores")
+        fetch("http://backend-app-service:8080/api/chores")
             .then(res => res.json())
             .then(data => setChores(data))
             .catch(err => console.error("Fehler beim Laden der Chores:", err));
@@ -31,7 +31,7 @@ export default function ChoreManager() {
     const deleteChore = (id: number) => {
         if (!confirm("Diesen Chore wirklich löschen?")) return;
 
-        fetch(`http://localhost:8080/api/chores/${id}`, {
+        fetch(`http://backend-app-service:8080/api/chores/${id}`, {
             method: "DELETE"
         })
             .then(() => {
@@ -45,7 +45,7 @@ export default function ChoreManager() {
 
         const payload = { title, weekday };
 
-        const res = await fetch("http://localhost:8080/api/chores", {
+        const res = await fetch("http://backend-app-service:8080/api/chores", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(payload),

@@ -8,7 +8,7 @@ export default function HabitManager() {
 
     // ✅ Alle Habits laden
     useEffect(() => {
-        fetch("http://localhost:8080/api/habits")
+        fetch("http://backend-app-service:8080/api/habits")
             .then(res => res.json())
             .then(setHabits)
             .catch(err => console.error("Fehler beim Laden der Habits:", err));
@@ -19,7 +19,7 @@ export default function HabitManager() {
         const title = newHabitTitle.trim();
         if (!title) return;
 
-        fetch("http://localhost:8080/api/habits", {
+        fetch("http://backend-app-service:8080/api/habits", {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({title})
@@ -36,7 +36,7 @@ export default function HabitManager() {
     const deleteHabit = (habitId: number) => {
         if (!confirm("Habit wirklich löschen?")) return;
 
-        fetch(`http://localhost:8080/api/habits/${habitId}`, {
+        fetch(`http://backend-app-service:8080/api/habits/${habitId}`, {
             method: "DELETE"
         })
             .then(res => {

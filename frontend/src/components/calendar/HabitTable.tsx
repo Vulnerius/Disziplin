@@ -17,7 +17,7 @@ export const HabitTable: React.FC<Props> = ({habits, logs, date, onToggle}) => {
 
     useEffect(() => {
         habits.forEach(habit => {
-            fetch(`http://localhost:8080/api/habits/${habit.id}/logs/completed`)
+            fetch(`http://backend-app-service:8080/api/habits/${habit.id}/logs/completed`)
                 .then(res => res.json())
                 .then(data => {
                     setCompletedDatesByHabit(prev => {

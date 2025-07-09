@@ -15,7 +15,7 @@ export default function JournalSection({ date }: { date: Date }) {
     // Lädt den Journal-Eintrag für das Datum, falls vorhanden
     useEffect(() => {
         setLoading(true);
-        fetch(`http://localhost:8080/api/journal/${dateStr}`)
+        fetch(`http://backend-app-service:8080/api/journal/${dateStr}`)
             .then(res => {
                 if (res.status === 204) return null; // Kein Eintrag
                 return res.json();
@@ -43,8 +43,8 @@ export default function JournalSection({ date }: { date: Date }) {
 
         const method = entry ? "PUT" : "POST";
         const url = entry
-            ? `http://localhost:8080/api/journal/${entry.id}`
-            : "http://localhost:8080/api/journal";
+            ? `http://backend-app-service:8080/api/journal/${entry.id}`
+            : "http://backend-app-service:8080/api/journal";
 
         fetch(url, {
             method,

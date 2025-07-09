@@ -22,7 +22,7 @@ export default function ChoreSection({date}: { date: Date }) {
     const dateStr = date.toISOString().split("T")[0];
 
     useEffect(() => {
-        fetch(`http://localhost:8080/api/chores/${dateStr}`)
+        fetch(`http://backend-app-service:8080/api/chores/${dateStr}`)
             .then(res => res.json())
             .then(data => setChores(data))
             .catch(err => console.error("Fehler beim Laden der Chores:", err));
@@ -30,7 +30,7 @@ export default function ChoreSection({date}: { date: Date }) {
 
     const toggleChore = (chore: Chore, completed: boolean) => {
         const nextCompleted = !completed;
-        fetch(`http://localhost:8080/api/chores/log`, {
+        fetch(`http://backend-app-service:8080/api/chores/log`, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({
