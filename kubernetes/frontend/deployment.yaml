@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-app
+  labels:
+    app: frontend
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - name: frontend-container
+          image: vulnerius/disziplin-frontend:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: VITE_BACKEND_API_URL # Oder wie auch immer dein Frontend die Backend-URL erwartet
+              value: http://backend-app-service:80 # Oder der Port deines Backend-Services
