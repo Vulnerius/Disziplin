@@ -14,17 +14,6 @@ resources:
   # Wenn du eine ingress.yaml hast, füge sie hier hinzu:
   # - ingress/ingress.yaml
 
-# Optional: Gemeinsame Labels für alle Ressourcen in dieser Kustomization.
-# Dies ist nützlich, um alle Ressourcen einer Anwendung leicht zu identifizieren
-# oder zu filtern (z.B. mit kubectl get all -l app.kubernetes.io/part-of=your-app-name).
-commonLabels:
-  app.kubernetes.io/part-of: disziplin-app
-  app.kubernetes.io/instance: dev-on-pi # Kann für Umgebungen variieren
-
-# Optional: Gemeinsame Annotationen
-# commonAnnotations:
-#   managed-by: kustomize
-
 # Optional: Um die Replikat-Anzahl zu überschreiben, ohne die Deployment-Datei zu ändern.
 # Du hast 2 Replikate für Backend und 4 für Frontend in deinen Deployments.
 # Dies wäre nützlich, wenn du z.B. nur 1 Replikat für eine bestimmte Umgebung willst.
