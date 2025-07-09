@@ -25,14 +25,13 @@ fun Application.configureRouting() {
     }
 
     install(CORS) {
-        allowHost("frontend-app-service:80", schemes = listOf("http")) // TODO check here
+        allowHost("eevee:30613", schemes = listOf("http")) // TODO check here
         allowMethod(HttpMethod.Get)
         allowMethod(HttpMethod.Post)
         allowMethod(HttpMethod.Put)
         allowMethod(HttpMethod.Delete)
         allowHeader(HttpHeaders.ContentType)
         allowHeader(HttpHeaders.Accept)
-        anyHost() // @TODO: Don't do this in production if possible. Try to limit it.
     }
 
     routing {
