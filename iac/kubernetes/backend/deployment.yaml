@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: backend-container
-          image: disziplin-backend:latest
+          image: localhost:5000/disziplin-backend:latest
           ports:
             - containerPort: 8080
           env:
