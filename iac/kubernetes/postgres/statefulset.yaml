@@ -15,12 +15,12 @@ spec:
     spec:
       containers:
         - name: postgres
-          image: postgres:16 # Oder eine andere Version
+          image: postgres:16
           ports:
             - containerPort: 5432
           env:
             - name: POSTGRES_DB
-              value: mydb
+              value: habitsdb
             - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:

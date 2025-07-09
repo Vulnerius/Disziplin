@@ -1,10 +1,10 @@
-# iac/kustomization.yaml
+# iac/kubernetes/kustomization.yaml
 
 # Auflistung aller Kubernetes-Ressourcen (Deployments, Services, Secrets, etc.),
 # die von Kustomize verwaltet werden sollen.
 # Diese Pfade sind relativ zum Ort dieser kustomization.yaml Datei.
 resources:
-  - postgres/secret.yaml
+  - postgres/secrets.yaml
   - postgres/service.yaml
   - postgres/statefulset.yaml
   - backend/service.yaml
@@ -39,9 +39,9 @@ commonLabels:
 # anstatt direkt die Deployment-Dateien zu ändern.
 # Kubernetes wird dann ein Rolling Update auslösen.
 images:
-  - name: disziplin-backend # Der Name des Images, wie in deinem Deployment verwendet
-    newName: localhost:5000/disziplin-backend # Neue, vollständige Image-URL
-    newTag: latest # Der neue Tag
-  - name: disziplin-frontend # Der Name des Images
-    newName: localhost:5000/disziplin-frontend # Neue, vollständige Image-URL
-    newTag: latest # Der neue Tag
+  - name: disziplin-backend
+    newName: localhost:5000/disziplin-backend
+    newTag: latest
+  - name: disziplin-frontend
+    newName: localhost:5000/disziplin-frontend
+    newTag: latest

@@ -7,7 +7,7 @@ import org.jetbrains.exposed.sql.transactions.transaction
 
 fun Application.configureDatabases() {
     val database = Database.connect(
-        url = "jdbc:postgresql://localhost:5432/habitsdb",
+        url = "jdbc:postgresql://postgres-db-service:5432/habitsdb",
         driver = "org.postgresql.Driver",
         user = "appuser",
         password = "secret"
