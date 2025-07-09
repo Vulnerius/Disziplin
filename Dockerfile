@@ -1,4 +1,4 @@
-FROM openjdk:17
+FROM openjdk:17-jdk-slim
 
 WORKDIR /app
 COPY /build/libs/Disziplin-all.jar app.jar
