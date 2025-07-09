@@ -1,7 +1,5 @@
 import React, {useEffect, useState} from "react";
 
-const API_BASE_URL = import.meta.env.VITE_BACKEND_API_URL || "http://localhost:80";
-
 type Chore = {
     id: number;
     title: string;
@@ -19,6 +17,8 @@ const weekdays = [
 ];
 
 export default function ChoreManager() {
+    const API_BASE_URL = import.meta.env.VITE_BACKEND_API_URL || "http://localhost:80";
+
     const [chores, setChores] = useState<Chore[]>([])
     const [title, setTitle] = useState("");
     const [weekday, setWeekday] = useState(1);

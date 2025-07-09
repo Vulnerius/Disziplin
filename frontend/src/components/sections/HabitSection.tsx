@@ -2,9 +2,6 @@ import {useEffect, useState} from "react";
 import {HabitTable} from "../calendar/HabitTable.tsx";
 import {Link} from "react-router-dom";
 
-const API_BASE_URL = import.meta.env.VITE_BACKEND_API_URL || "http://localhost:80"; // Fallback für lokale Entwicklung
-
-
 export interface HabitLog {
     habitId: number;
     title: string;
@@ -18,6 +15,7 @@ export interface Habit {
 }
 
 export default function HabitSection({date}: { date: Date }) {
+    const API_BASE_URL = import.meta.env.VITE_BACKEND_API_URL || "http://localhost:80"; // Fallback für lokale Entwicklung
     const [habitLogs, setHabitLogs] = useState<HabitLog[]>([]);
     const [habits, setHabits] = useState<Habit[]>([]);
 
