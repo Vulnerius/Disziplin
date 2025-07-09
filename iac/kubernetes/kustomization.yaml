@@ -4,7 +4,7 @@
 # die von Kustomize verwaltet werden sollen.
 # Diese Pfade sind relativ zum Ort dieser kustomization.yaml Datei.
 resources:
-  - postgres/secrets.yaml
+  - postgres/secret.yaml
   - postgres/service.yaml
   - postgres/statefulset.yaml
   - backend/service.yaml
