@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+const API_BASE_URL = import.meta.env.VITE_BACKEND_API_URL || "http://localhost:80";
 
 interface JournalEntry {
     id: number;
@@ -15,7 +16,7 @@ export default function JournalSection({ date }: { date: Date }) {
     // Lädt den Journal-Eintrag für das Datum, falls vorhanden
     useEffect(() => {
         setLoading(true);
-        fetch(`http://backend-app-service:8080/api/journal/${dateStr}`)
+        fetch(`${API_BASE_URL}/api/journal/${dateStr}`)
             .then(res => {
                 if (res.status === 204) return null; // Kein Eintrag
                 return res.json();
@@ -43,8 +44,8 @@ export default function JournalSection({ date }: { date: Date }) {
 
         const method = entry ? "PUT" : "POST";
         const url = entry
-            ? `http://backend-app-service:8080/api/journal/${entry.id}`
-            : "http://backend-app-service:8080/api/journal";
+            ? `${API_BASE_URL}/api/journal/${entry.id}`
+            : "${API_BASE_URL}/api/journal";
 
         fetch(url, {
             method,

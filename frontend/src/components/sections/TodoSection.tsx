@@ -1,5 +1,7 @@
 import {useEffect, useState} from "react";
 
+const API_BASE_URL = import.meta.env.VITE_BACKEND_API_URL || "http://localhost:80";
+
 export interface Todo {
     id?: number;
     date: string;
@@ -15,7 +17,7 @@ export default function TodoSection({date}: { date: Date }) {
 
     useEffect(() => {
         setLoading(true);
-        fetch(`http://backend-app-service:8080/api/todos/${dateStr}`)
+        fetch(`${API_BASE_URL}/api/todos/${dateStr}`)
             .then(res => res.json())
             .then(data => setTodos(data))
             .catch(err => console.error("Fehler beim Laden der Todos:", err))
@@ -28,7 +30,7 @@ export default function TodoSection({date}: { date: Date }) {
 
         if (!todo.id) {
             // Neu anlegen
-            fetch("http://backend-app-service:8080/api/todos", {
+            fetch("${API_BASE_URL}/api/todos", {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify(newTodo)
@@ -41,7 +43,7 @@ export default function TodoSection({date}: { date: Date }) {
                 });
         } else {
             // Update
-            fetch(`http://backend-app-service:8080/api/todos/${todo.id}`, {
+            fetch(`${API_BASE_URL}/api/todos/${todo.id}`, {
                 method: "PUT",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify(newTodo)

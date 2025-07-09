@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import type {Habit} from "../sections/HabitSection.tsx";
 
+const API_BASE_URL = import.meta.env.VITE_BACKEND_API_URL || "http://localhost:80";
 
 export default function HabitManager() {
     const [habits, setHabits] = useState<Habit[]>([]);
@@ -8,7 +9,7 @@ export default function HabitManager() {
 
     // ✅ Alle Habits laden
     useEffect(() => {
-        fetch("http://backend-app-service:8080/api/habits")
+        fetch("${API_BASE_URL}/api/habits")
             .then(res => res.json())
             .then(setHabits)
             .catch(err => console.error("Fehler beim Laden der Habits:", err));
@@ -19,7 +20,7 @@ export default function HabitManager() {
         const title = newHabitTitle.trim();
         if (!title) return;
 
-        fetch("http://backend-app-service:8080/api/habits", {
+        fetch("${API_BASE_URL}/api/habits", {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({title})
@@ -36,7 +37,7 @@ export default function HabitManager() {
     const deleteHabit = (habitId: number) => {
         if (!confirm("Habit wirklich löschen?")) return;
 
-        fetch(`http://backend-app-service:8080/api/habits/${habitId}`, {
+        fetch(`${API_BASE_URL}api/habits/${habitId}`, {
             method: "DELETE"
         })
             .then(res => {

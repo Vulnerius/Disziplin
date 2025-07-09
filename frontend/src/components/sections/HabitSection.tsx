@@ -2,6 +2,9 @@ import {useEffect, useState} from "react";
 import {HabitTable} from "../calendar/HabitTable.tsx";
 import {Link} from "react-router-dom";
 
+const API_BASE_URL = import.meta.env.VITE_BACKEND_API_URL || "http://localhost:80"; // Fallback für lokale Entwicklung
+
+
 export interface HabitLog {
     habitId: number;
     title: string;
@@ -21,7 +24,7 @@ export default function HabitSection({date}: { date: Date }) {
     const dateStr = date.toISOString().split("T")[0];
 
     useEffect(() => {
-        fetch(`http://backend-app-service:8080/api/habits`)
+        fetch(`${API_BASE_URL}/api/habits`)
             .then(res => res.json())
             .then(data => setHabits(data.map((h: { id: number; title: string; }) => ({
                 id: h.id,
@@ -31,7 +34,7 @@ export default function HabitSection({date}: { date: Date }) {
     }, []);
 
     useEffect(() => {
-        fetch(`http://backend-app-service:8080/api/habits/${dateStr}`)
+        fetch(`${API_BASE_URL}/api/habits/${dateStr}`)
             .then(res => res.json())
             .then(data => setHabitLogs(data))
             .catch(err => console.error("Fehler beim Laden der Habits:", err));
@@ -46,7 +49,7 @@ export default function HabitSection({date}: { date: Date }) {
             date: dateStr,
             completed: updated
         }
-        fetch("http://backend-app-service:8080/api/habits/log", {
+        fetch("${API_BASE_URL}/api/habits/log", {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(payload)

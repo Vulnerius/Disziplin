@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from "react";
 
+const API_BASE_URL = import.meta.env.VITE_BACKEND_API_URL || "http://localhost:80";
+
 type Chore = {
     id: number;
     title: string;
@@ -22,7 +24,7 @@ export default function ChoreManager() {
     const [weekday, setWeekday] = useState(1);
 
     useEffect(() => {
-        fetch("http://backend-app-service:8080/api/chores")
+        fetch("${API_BASE_URL}/api/chores")
             .then(res => res.json())
             .then(data => setChores(data))
             .catch(err => console.error("Fehler beim Laden der Chores:", err));
@@ -31,7 +33,7 @@ export default function ChoreManager() {
     const deleteChore = (id: number) => {
         if (!confirm("Diesen Chore wirklich löschen?")) return;
 
-        fetch(`http://backend-app-service:8080/api/chores/${id}`, {
+        fetch(`${API_BASE_URL}/api/chores/${id}`, {
             method: "DELETE"
         })
             .then(() => {
@@ -45,7 +47,7 @@ export default function ChoreManager() {
 
         const payload = { title, weekday };
 
-        const res = await fetch("http://backend-app-service:8080/api/chores", {
+        const res = await fetch("${API_BASE_URL}/api/chores", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(payload),
