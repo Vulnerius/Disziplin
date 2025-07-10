@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: frontend-container
-          image: 'ghcr.io/vulnerius/disziplin/disziplin-frontend:1cb4f18954975b62e67ff0f40369deee47a5d569'
+          image: 'https://ghcr.io/vulnerius/disziplin/disziplin-frontend:9659f980059212c49fefb41405b637563ba85963'
           ports:
             - containerPort: 3000
           env:
