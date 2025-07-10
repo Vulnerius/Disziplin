@@ -1,4 +1,4 @@
-# .github/workflows/backend-ci.yml
+# .github/workflows/frontend-ci.yml
 name: Frontend CI/CD
 
 on:
@@ -6,7 +6,7 @@ on:
     branches:
       - main
     paths:
-      - 'frontend/**' # check for backend changes
+      - 'frontend/**' # check for frontend changes
 
 jobs:
   build-and-deploy:
