@@ -1,3 +1,3 @@
 
 
-export const API_BASE_URL = import.meta.env.VITE_BACKEND_API_URL || "localhost:8080"
+export const API_BASE_URL = import.meta.env.VITE_BACKEND_API_URL || "192.168.2.111:31812"
