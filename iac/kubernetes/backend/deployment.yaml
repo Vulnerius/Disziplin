@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: backend-container
-          image: 'ghcr.io/vulnerius/disziplin/disziplin-backend:6c1703a08fd69313f3c4f6927ab777b57052b3f9'
+          image: 'ghcr.io/vulnerius/disziplin/disziplin-backend:466d7caef36fba051952930049d27f09b33831e1'
           ports:
             - containerPort: 8080
           env:
