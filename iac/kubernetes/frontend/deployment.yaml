@@ -20,5 +20,5 @@ spec:
           ports:
             - containerPort: 3000
           env:
-            - name: VITE_BACKEND_API_URL # Oder wie auch immer dein Frontend die Backend-URL erwartet
-              value: http://backend-app-service:80 # Oder der Port deines Backend-Services
+            - name: VITE_BACKEND_API_URL
+              value: http://192.168.2.111:31812

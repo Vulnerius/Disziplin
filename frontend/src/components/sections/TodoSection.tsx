@@ -1,4 +1,5 @@
 import {useEffect, useState} from "react";
+import {API_BASE_URL} from "../../api/config.tsx";
 
 export interface Todo {
     id?: number;
@@ -9,7 +10,6 @@ export interface Todo {
 }
 
 export default function TodoSection({date}: { date: Date }) {
-    const API_BASE_URL = import.meta.env.VITE_BACKEND_API_URL || "http://localhost:80";
     const [todos, setTodos] = useState<Todo[]>([]);
     const [loading, setLoading] = useState(true);
     const dateStr = date.toISOString().split("T")[0];

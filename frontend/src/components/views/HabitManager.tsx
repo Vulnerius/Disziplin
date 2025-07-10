@@ -1,9 +1,8 @@
 import {useEffect, useState} from "react";
 import type {Habit} from "../sections/HabitSection.tsx";
+import { API_BASE_URL } from '../../api/config.tsx';
 
 export default function HabitManager() {
-    const API_BASE_URL = import.meta.env.VITE_BACKEND_API_URL || "http://localhost:80";
-
     const [habits, setHabits] = useState<Habit[]>([]);
     const [newHabitTitle, setNewHabitTitle] = useState("");
 

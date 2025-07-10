@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import {API_BASE_URL} from "../../api/config.tsx";
 
 interface JournalEntry {
     id: number;
@@ -7,8 +8,6 @@ interface JournalEntry {
 }
 
 export default function JournalSection({ date }: { date: Date }) {
-    const API_BASE_URL = import.meta.env.VITE_BACKEND_API_URL || "http://localhost:80";
-
     const [entry, setEntry] = useState<JournalEntry | null>(null);
     const [inputValue, setInputValue] = useState("");
     const [loading, setLoading] = useState(true);

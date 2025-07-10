@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {type Habit, type HabitLog} from "../sections/HabitSection.tsx";
+import {API_BASE_URL} from "../../api/config.tsx";
 
 type Props = {
     habits: Habit[];
@@ -9,8 +10,6 @@ type Props = {
 };
 
 export const HabitTable: React.FC<Props> = ({habits, logs, date, onToggle}) => {
-    const API_BASE_URL = import.meta.env.VITE_BACKEND_API_URL || "http://localhost:80";
-
     const getCompleted = (habitId: number, date: string) => {
         return logs.find((l) => l.habitId === habitId && l.date === date)?.completed ?? false;
     };
