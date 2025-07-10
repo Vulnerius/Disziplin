@@ -38,7 +38,7 @@ jobs:
           FULL_IMAGE_NAME=`ghcr.io/${{ secrets.CR_USERNAME }}/${{ github.event.repository.name }}/${{ env.IMAGE_NAME }}`
           
           # Baue und pushe das Image
-          docker build -t $FULL_IMAGE_NAME:${{ env.IMAGE_TAG }} -t latest -f frontend/Dockerfile frontend/
+          docker build -t $FULL_IMAGE_NAME:${{ env.IMAGE_TAG }} -f frontend/Dockerfile frontend/
           docker push $FULL_IMAGE_NAME:${{ env.IMAGE_TAG }}
           
           # Setze den voll qualifizierten Image-Namen als Output für den nächsten Schritt
