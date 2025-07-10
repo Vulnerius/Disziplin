@@ -51,7 +51,7 @@ jobs:
         if: success()
         with:
           cmd: |
-            yq e '.spec.template.spec.containers[0].image = "${{ steps.build-image.outputs.image_name }}"' -i iac/kubernetes/frontend/deployment.yaml
+            yq e '.spec.template.spec.containers[0].image = "https://${{ steps.build-image.outputs.image_name }}"' -i iac/kubernetes/frontend/deployment.yaml
 
       - name: Commit and push changes to GitOps repo
         uses: EndBug/add-and-commit@v9
