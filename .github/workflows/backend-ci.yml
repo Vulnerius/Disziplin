@@ -1,0 +1,78 @@
+# .github/workflows/backend-ci.yml
+name: Backend CI/CD
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'backend/**' # check for backend changes
+
+jobs:
+  build-and-deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: 'gradle'
+
+      - name: Build Gradle project
+        run: |
+          cd backend
+          ./gradlew clean build
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.CONTAINERREGISTRY_HOST }}
+          username: ${{ secrets.GHCR_USERNAME }}
+          password: ${{ secrets.PAT }}
+
+      - name: Get current date for image tag
+        id: date
+        run: echo "::set-output name=now::$(date +'%Y%m%d%H%M%S')"
+
+      - name: Build and push Backend Docker image
+        id: build-image
+        # Image-Name-Format: ghcr.io/<USERNAME>/<REPO>/<IMAGE_NAME>:<TAG>
+        env:
+          IMAGE_NAME: disziplin-backend
+          IMAGE_TAG: ${{ github.sha }}
+
+        run: |
+          # Vollständiger Image-Name für GHCR
+          FULL_IMAGE_NAME=${{ secrets.GHCR_HOST }}/${{ secrets.GHCR_USERNAME }}/${{ github.event.repository.name }}/${{ env.IMAGE_NAME }}
+          
+          # Baue und pushe das Image
+          docker build -t $FULL_IMAGE_NAME:${{ env.IMAGE_TAG }} -f backend/Dockerfile backend/
+          docker push $FULL_IMAGE_NAME:${{ env.IMAGE_TAG }}
+          
+          # Setze den voll qualifizierten Image-Namen als Output für den nächsten Schritt
+          echo "::set-output name=image_name::$FULL_IMAGE_NAME:${{ env.IMAGE_TAG }}"
+
+      - name: Update Kubernetes image tag in deployment YAML
+        # Dieser Schritt aktualisiert die deployment.yaml im 'iac' Ordner
+        # Ersetzt den Image-Namen im YAML durch das neu gepushte Image
+        uses: mikefarah/yq@v4
+        if: success()
+        with:
+          cmd: |
+            yq e '.spec.template.spec.containers[0].image = "${{ steps.build-image.outputs.image_name }}"' -i iac/kubernetes/backend/deployment.yaml
+
+      - name: Commit and push changes to GitOps repo
+        uses: EndBug/add-and-commit@v9
+        with:
+          author_name: GitHub Actions
+          author_email: actions@github.com
+          message: "CI(backend): Update backend image tag to ${{ github.sha }}"
+          add: 'iac/kubernetes/backend/deployment.yaml'
