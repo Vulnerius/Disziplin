@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: disziplin
+  namespace: argocd # Argo CD Anwendungen leben im Argo CD Namespace
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/vulnerius/Disziplin.git
+    targetRevision: main
+    path: iac/             # Der Pfad zu deinen Kubernetes YAMLs im Repo
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default     # Der Namespace, in dem deine App deployt wird
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true # Wenn der Namespace nicht existiert
