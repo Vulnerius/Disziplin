@@ -34,7 +34,7 @@ jobs:
       - name: Log in to the Container registry
         uses: docker/login-action@v3
         with:
-          registry: ${{ env.CONTAINERREGISTRY_HOST }}
+          registry: ghcr.io #${{ env.CONTAINERREGISTRY_HOST }}
           username: ${{ secrets.CR_USERNAME }}
           password: ${{ secrets.PAT }}
 
