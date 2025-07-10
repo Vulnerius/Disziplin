@@ -22,3 +22,5 @@ spec:
           env:
             - name: VITE_BACKEND_API_URL
               value: http://192.168.2.111:31812
+      imagePullSecrets:
+        - name: ghcr-secret
