@@ -47,7 +47,7 @@ jobs:
 
         run: |
           # Vollständiger Image-Name für GHCR
-          FULL_IMAGE_NAME=`ghcr.io/${{ secrets.CR_USERNAME }}/${{ github.event.repository.name }}/${{ env.IMAGE_NAME }}`
+          FULL_IMAGE_NAME=`ghcr.io/${{ secrets.CR_USERNAME }}/${{ github.event.repository.name }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}`
           
           # Baue und pushe das Image mit tag latest
           docker build -t $FULL_IMAGE_NAME:${{ env.IMAGE_TAG }} -f backend/Dockerfile backend/
