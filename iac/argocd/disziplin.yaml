@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/vulnerius/Disziplin.git
+    repoURL: https://github.com/vulnerius/disziplin.git
     targetRevision: main
     path: iac/kubernetes/        # Der Pfad zu deinen Kubernetes YAMLs im Repo
   destination:
