@@ -27,6 +27,7 @@ jobs:
         run: |
           cd backend
           ./gradlew clean shadowJar
+          cd ..
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -50,7 +51,7 @@ jobs:
           FULL_IMAGE_NAME='ghcr.io/${{ secrets.CR_USERNAME }}/${{ github.event.repository.name }}/${{ env.IMAGE_NAME }}'
           
           # Baue und pushe das Image mit tag latest
-          docker build -t $FULL_IMAGE_NAME:${{ env.IMAGE_TAG }} -f Dockerfile .
+          docker build -t $FULL_IMAGE_NAME:${{ env.IMAGE_TAG }} -f backend/Dockerfile backend/
           docker push $FULL_IMAGE_NAME:${{ env.IMAGE_TAG }}
           
           # Setze den voll qualifizierten Image-Namen als Output für den nächsten Schritt
