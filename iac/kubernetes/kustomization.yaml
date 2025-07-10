@@ -11,6 +11,7 @@ resources:
   - backend/deployment.yaml
   - frontend/service.yaml
   - frontend/deployment.yaml
+  - ghcr-secret.yaml
   # Wenn du eine ingress.yaml hast, füge sie hier hinzu:
   # - ingress/ingress.yaml
 
