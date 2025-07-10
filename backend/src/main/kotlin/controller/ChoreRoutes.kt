@@ -53,7 +53,6 @@ fun Route.choreRoutes() {
                         ChoreLogResponseDTO(
                             choreId = choreId,
                             completed = log?.get(ChoreLogs.completed) ?: false
-                            // someChange
                         )
                     )
                 }
