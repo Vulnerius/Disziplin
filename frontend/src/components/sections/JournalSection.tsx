@@ -15,7 +15,6 @@ export default function JournalSection({ date }: { date: Date }) {
 
     // Lädt den Journal-Eintrag für das Datum, falls vorhanden
     useEffect(() => {
-        // someChange
         setLoading(true);
         fetch(`${API_BASE_URL}/api/journal/${dateStr}`)
             .then(res => {
