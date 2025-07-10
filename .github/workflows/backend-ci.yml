@@ -38,10 +38,6 @@ jobs:
           username: ${{ secrets.GHCR_USERNAME }}
           password: ${{ secrets.PAT }}
 
-      - name: Get current date for image tag
-        id: date
-        run: echo "::set-output name=now::$(date +'%Y%m%d%H%M%S')"
-
       - name: Build and push Backend Docker image
         id: build-image
         # Image-Name-Format: ghcr.io/<USERNAME>/<REPO>/<IMAGE_NAME>:<TAG>
