@@ -21,7 +21,7 @@ export default function ChoreManager() {
     const [chores, setChores] = useState<Chore[]>([])
     const [title, setTitle] = useState("");
     const [weekday, setWeekday] = useState(1);
-
+//someChange
     useEffect(() => {
         fetch(`${API_BASE_URL}/api/chores`)
             .then(res => res.json())
