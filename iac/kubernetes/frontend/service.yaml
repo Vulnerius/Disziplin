@@ -7,8 +7,8 @@ spec:
     app: frontend
   ports:
     - protocol: TCP
-      port: 3000 # Oder der Port, auf dem der Service erreichbar sein soll
-      targetPort: 30613 # Der Port des Containers
-  type: NodePort # Für lokale Entwicklung wird Docker Desktop/minikube dies auf Host-Port mappen
+      port: 3000
+      targetPort: 3000
+  type: ClusterIP
   # Oder type: NodePort, um einen Port auf dem Host direkt freizugeben.
   # Oder Ingress nutzen, siehe unten.
