@@ -4,8 +4,6 @@ metadata:
   name: disziplin-ingress
   namespace: default
   annotations:
-    # Diese Annotationen sind für den History-Mode und Path Rewriting in Nginx Ingress Controller
-    nginx.ingress.kubernetes.io/rewrite-target: /$2 # Für Backend /api/users -> /users
     nginx.ingress.kubernetes.io/app-root: /
     nginx.ingress.kubernetes.io/configuration-snippet: |
       # Dies fängt 404s ab und leitet sie an index.html weiter für SPAs
@@ -19,7 +17,7 @@ spec:
       http:
         paths:
           # Regel für das Backend API
-          - path: /api(/|$)(.*) # RegEx, um /api/ zu entfernen
+          - path: /api/
             pathType: Prefix
             backend:
               service:
