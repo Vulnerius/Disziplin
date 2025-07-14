@@ -12,8 +12,7 @@ resources:
   - frontend/service.yaml
   - frontend/deployment.yaml
   - ghcr-secret.yaml
-  # Wenn du eine ingress.yaml hast, füge sie hier hinzu:
-  # - ingress/ingress.yaml
+  - ingress.yaml
 
 # Optional: Um die Replikat-Anzahl zu überschreiben, ohne die Deployment-Datei zu ändern.
 # Du hast 2 Replikate für Backend und 4 für Frontend in deinen Deployments.
@@ -28,10 +27,10 @@ resources:
 # Wenn du die Image-Tags aktualisieren musst, kannst du dies hier tun,
 # anstatt direkt die Deployment-Dateien zu ändern.
 # Kubernetes wird dann ein Rolling Update auslösen.
-images:
-  - name: disziplin-backend
-    newName: localhost:5000/disziplin-backend
-    newTag: latest
-  - name: disziplin-frontend
-    newName: localhost:5000/disziplin-frontend
-    newTag: latest
+#images:
+#  - name: disziplin-backend
+#    newName: localhost:5000/disziplin-backend
+ #   newTag: latest
+ # - name: disziplin-frontend
+ #   newName: localhost:5000/disziplin-frontend
+ #   newTag: latest
