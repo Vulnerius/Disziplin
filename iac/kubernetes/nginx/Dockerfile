@@ -6,7 +6,6 @@ FROM nginx:alpine
 COPY nginx.conf /etc/nginx/nginx.conf
 
 # Optional: Wenn du zusätzliche Konfigurationen in conf.d hast
-# somechange
 # COPY conf.d/ /etc/nginx/conf.d/
 
 # Exposeiere die Standard-HTTP- und HTTPS-Ports

@@ -38,7 +38,7 @@ jobs:
           FULL_IMAGE_NAME='ghcr.io/${{ secrets.CR_USERNAME }}/${{ github.event.repository.name }}/${{ env.IMAGE_NAME }}'
           
           # Baue und pushe das Image
-          docker build -t $FULL_IMAGE_NAME:${{ env.IMAGE_TAG }} -f iac/nginx/Dockerfile iac/nginx/
+          docker build -t $FULL_IMAGE_NAME:${{ env.IMAGE_TAG }} -f iac/kubernetes/nginx/Dockerfile iac/kubernetes/nginx/
           docker push $FULL_IMAGE_NAME:${{ env.IMAGE_TAG }}
           
           # Setze den voll qualifizierten Image-Namen als Output für den nächsten Schritt
@@ -51,7 +51,7 @@ jobs:
         if: success()
         with:
           cmd: |
-            yq e '.spec.template.spec.containers[0].image = "${{ steps.build-image.outputs.image_name }}"' -i iac/nginx/deployment.yaml
+            yq e '.spec.template.spec.containers[0].image = "${{ steps.build-image.outputs.image_name }}"' -i iac/kubernetes/nginx/deployment.yaml
 
       - name: Commit and push changes to GitOps repo
         uses: EndBug/add-and-commit@v9
@@ -60,4 +60,4 @@ jobs:
           author_email: actions@github.com
           pull: '--rebase --autostash'
           message: "CI(backend): Update nginx image tag to ${{ github.sha }}"
-          add: 'iac/nginx/deployment.yaml'
+          add: 'iac/kubernetes/nginx/deployment.yaml'
