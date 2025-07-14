@@ -1,3 +1,3 @@
 
 
-export const API_BASE_URL = 'http://backend-app-service:80'
+export const API_BASE_URL = 'http://eevee:30080'
