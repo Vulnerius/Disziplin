@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-proxy-deployment
+  labels:
+    app: nginx-proxy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-proxy
+  template:
+    metadata:
+      labels:
+        app: nginx-proxy
+    spec:
+      containers:
+        - name: nginx-proxy-container
+          image: ghcr.io/vulnerius/disziplin/nginx-proxy:latest
+          ports:
+            - containerPort: 80
+            - containerPort: 443 # Wenn du HTTPS planst
+          # Keine imagePullSecrets notwendig, wenn dieses Image öffentlich ist oder du es manuell pusht
+          # Wenn es privat ist, brauchst du hier auch ein ImagePullSecret
