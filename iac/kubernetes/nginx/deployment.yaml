@@ -22,3 +22,5 @@ spec:
             - containerPort: 443 # Wenn du HTTPS planst
               # Keine imagePullSecrets notwendig, wenn dieses Image öffentlich ist oder du es manuell pusht
               # Wenn es privat ist, brauchst du hier auch ein ImagePullSecret
+      imagePullSecrets:
+        - name: ghcr-secret
