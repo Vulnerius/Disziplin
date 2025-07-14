@@ -12,8 +12,8 @@ resources:
   - frontend/service.yaml
   - frontend/deployment.yaml
   - ghcr-secret.yaml
-  - ../nginx/service.yaml
-  - ../nginx/deployment.yaml
+  - nginx/service.yaml
+  - nginx/deployment.yaml
 
 # Optional: Um die Replikat-Anzahl zu überschreiben, ohne die Deployment-Datei zu ändern.
 # Du hast 2 Replikate für Backend und 4 für Frontend in deinen Deployments.
