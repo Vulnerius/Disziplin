@@ -1,3 +1,3 @@
 
 
-export const API_BASE_URL = import.meta.env.VITE_BACKEND_API_URL
+export const API_BASE_URL = 'http://backend-app-service:80/api'

@@ -19,8 +19,5 @@ spec:
           image: 'ghcr.io/vulnerius/disziplin/disziplin-frontend:9811463e7149e00954f730261ce7b5a565a4b1f8'
           ports:
             - containerPort: 3000
-          env:
-            - name: VITE_BACKEND_API_URL
-              value: http://backend-app-service:80
       imagePullSecrets:
         - name: ghcr-secret
