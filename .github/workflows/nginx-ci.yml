@@ -6,7 +6,7 @@ on:
     branches:
       - main
     paths:
-      - '../../iac/kubernetes/nginx/**' # check for nginx config changes
+      - '/iac/kubernetes/nginx/**' # check for nginx config changes
 
 jobs:
   build-and-deploy-nginx:
