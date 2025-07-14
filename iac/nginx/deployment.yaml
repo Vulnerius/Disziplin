@@ -16,9 +16,9 @@ spec:
     spec:
       containers:
         - name: nginx-proxy-container
-          image: ghcr.io/vulnerius/disziplin/nginx-proxy:latest
+          image: ghcr.io/vulnerius/disziplin/nginx:b4d60d07b4de38872f33732eb6d67caeb2773844
           ports:
             - containerPort: 80
             - containerPort: 443 # Wenn du HTTPS planst
-          # Keine imagePullSecrets notwendig, wenn dieses Image öffentlich ist oder du es manuell pusht
-          # Wenn es privat ist, brauchst du hier auch ein ImagePullSecret
+              # Keine imagePullSecrets notwendig, wenn dieses Image öffentlich ist oder du es manuell pusht
+              # Wenn es privat ist, brauchst du hier auch ein ImagePullSecret
