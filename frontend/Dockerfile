@@ -33,7 +33,7 @@ COPY --from=build /app/dist /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Expose the port Nginx will listen on (default for HTTP)
-EXPOSE 3000 443 80
+EXPOSE 3000
 
 # Nginx serves content by default, no specific CMD needed unless you customize it
 CMD ["nginx", "-g", "daemon off;"]
