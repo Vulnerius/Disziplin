@@ -14,6 +14,7 @@ resources:
   - ghcr-secret.yaml
   - nginx/service.yaml
   - nginx/deployment.yaml
+  - nginx/disziplin-tls-secret.yaml
 
 # Optional: Um die Replikat-Anzahl zu überschreiben, ohne die Deployment-Datei zu ändern.
 # Du hast 2 Replikate für Backend und 4 für Frontend in deinen Deployments.
