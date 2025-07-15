@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: nginx-proxy-container
-          image: ghcr.io/vulnerius/disziplin/nginx:0c0fd155cc7fd5a801f21867bbb3abceef9f3f2a
+          image: ghcr.io/vulnerius/disziplin/nginx:2870b70c1e869ee9b53b3ad0054fdbcd5b375bd4
           ports:
             - containerPort: 80
             - containerPort: 443
