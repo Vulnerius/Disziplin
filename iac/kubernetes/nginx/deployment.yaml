@@ -22,7 +22,7 @@ spec:
             - containerPort: 443
           volumeMounts:
             - mountPath: "/etc/nginx/certs"
-              name: tls-secret
+              name: tls-cert
               readOnly: true
       volumes:
         - name: tls-cert
