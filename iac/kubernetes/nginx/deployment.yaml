@@ -19,6 +19,14 @@ spec:
           image: ghcr.io/vulnerius/disziplin/nginx:0093f4d5b292617d9a8903245939182f40a89de1
           ports:
             - containerPort: 80
-            - containerPort: 443 # Wenn du HTTPS planst
+            - containerPort: 443
+          volumeMounts:
+            - mountPath: "/etc/nginx/certs"
+              name: tls-secret
+              readOnly: true
+      volumes:
+        - name: tls-cert
+          secret:
+            secretName: disziplin-tls-secret
       imagePullSecrets:
         - name: ghcr-secret
