@@ -25,8 +25,11 @@ fun Application.configureRouting() {
     }
 
     install(CORS) {
-        allowHost("192.168.2.111:30080", schemes = listOf("http")) // TODO check here
+        allowHost("192.168.2.111:30080", schemes = listOf("http"))
+        allowHost("192.168.2.111:30443", schemes = listOf("https"))
         allowHost("eevee:30080", schemes = listOf("http"))
+        allowHost("eevee:30443", schemes = listOf("https"))
+
         allowMethod(HttpMethod.Get)
         allowMethod(HttpMethod.Post)
         allowMethod(HttpMethod.Put)
